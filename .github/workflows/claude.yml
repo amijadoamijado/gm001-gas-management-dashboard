@@ -1,0 +1,28 @@
+name: Claude Assistant
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened, assigned, labeled]
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  claude-response:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: anthropics/claude-code-action@beta
+        with:
+          # anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # オプション：トリガーフレーズをカスタマイズ（デフォルト: @claude）
+          # trigger_phrase: "/claude"
+          # オプション：最大会話ターン数を制限
+          # max_turns: "5"
+          # オプション：カスタム環境変数を追加
+          # claude_env: |
+          #   NODE_ENV: production
+          #   DEBUG: false
